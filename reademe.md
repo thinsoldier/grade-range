@@ -1,0 +1,1 @@
+A simple tool to help teachers calculate percentages when grading papers.
