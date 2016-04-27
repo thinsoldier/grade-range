@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+<style>
+
+body{ 
+  max-width: 800px; 
+  margin:auto;
+  font-family: Trebuchet MS;
+  font-size: 18px;
+}
+
+form {
+  margin: 2em;
+}
+
+#output{
+  list-style-type: none;
+  margin:0;
+  padding:0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 80vh;
+  //columns:4;
+}
+li { 
+  display:flex; 
+  margin: 0.5em;
+  padding: 0.5em;
+  background: #eee; 
+}
+.points{
+  padding-right:1em;
+  min-width: 50px;
+}
+</style>
+</head>
+<body>
+  <form>
+    <label>Max Points</label>
+    <input name="maxpoints" type="number" value=11>
+    <input type="submit" value="Generate Percentages">
+  </form>
+  
+  <ul id="output">
+  </ul>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script>
+  var app = {
+    init:function()
+    {
+      console.log('initialized');
+      console.log(this.generatePercentages);
+      $('input[type=submit]').click(app.generatePercentages);
+    },
+    generatePercentages:function(clickevent)
+    {
+      clickevent.preventDefault();
+        $('#output').html('');
+        var max = $('input[name=maxpoints]').val();
+        console.log( typeof max);
+        for( var i=0; i<=max; i++)
+        {
+          var points = i;
+          var percentage = Math.round( Math.fround( (points/max) * 100 ) );
+          var $a = $('<span>').addClass('points').html(points+'/'+max);
+          var $b = $('<span>').addClass('percentage').html(percentage+'%');
+          $('#output').append( $('<li>').append($a).append($b) );
+        }
+    }
+  };
+  
+  $(document).ready( app.init );
+  </script>
+</body>
+</html>
