@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+<meta charset="utf8">
 <style>
 
 body{ 
@@ -60,12 +61,23 @@ li {
     init:function()
     {
       console.log('initialized');
-      console.log(this.generatePercentages);
-      $('input[type=submit]').click(app.generatePercentages);
+      console.log("`this:`",this);
+      $('input[type=submit]')   .click ( app.clickedButton.bind(this) );
+      $('input[name=maxpoints]').change( app.generatePercentages );
+      $('input[name=maxpoints]').on    ( 'keyup focus', app.generatePercentages );
     },
-    generatePercentages:function(clickevent)
+    clickedButton:function(clickevent)
     {
       clickevent.preventDefault();
+      this.generatePercentages();
+    },
+    changedField:function(event)
+    {
+      event.preventDefault();
+      this.generatePercentages();
+    },
+    generatePercentages:function()
+    {  
         $('#output').html('');
         var max = $('input[name=maxpoints]').val();
         console.log( typeof max);
@@ -80,7 +92,7 @@ li {
     }
   };
   
-  $(document).ready( app.init );
+  $(document).ready( function($) {app.init();} );
   </script>
 </body>
 </html>
